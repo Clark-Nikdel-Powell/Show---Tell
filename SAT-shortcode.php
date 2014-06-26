@@ -24,7 +24,7 @@ function show_and_tell_setup($attr) {
 		'order'      => 'ASC',
 		'orderby'    => 'menu_order',
 		'id'         => $post ? $post->ID : 0,
-		'size'       => 'thumbnail',
+		'size'       => 'full',
 		'include'    => '',
 		'exclude'    => '',
 		'ids'        => ''
@@ -64,7 +64,7 @@ function show_and_tell_setup($attr) {
 	$output .= "<div class='sat-gallery'><div class='images'>";
 
 	foreach ( $attachments as $id => $attachment ) {
-		$imagearr = wp_get_attachment_image_src( $id, array(605,370), false);
+		$imagearr = wp_get_attachment_image_src( $id, $size, false);
 
 		$output .= '<div class="image" style="background-image:url('.$imagearr[0].');"></div>';
 	}
