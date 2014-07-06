@@ -27,7 +27,8 @@ function show_and_tell_setup($attr) {
 		'size'       => 'full',
 		'include'    => '',
 		'exclude'    => '',
-		'ids'        => ''
+		'ids'        => '',
+		'autoplay'   => false
 	), $attr));
 
 	$id = intval($id);
@@ -61,7 +62,7 @@ function show_and_tell_setup($attr) {
 
 	// Build the output
 	$output = '';
-	$output .= "<div class='sat-gallery'><div class='images'>";
+	$output .= "<div class='sat-gallery' data-autoplay='$autoplay'><div class='images'>";
 
 	foreach ( $attachments as $id => $attachment ) {
 		$imagearr = wp_get_attachment_image_src( $id, $size, false);

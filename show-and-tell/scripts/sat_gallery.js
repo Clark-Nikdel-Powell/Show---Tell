@@ -9,8 +9,7 @@ jQuery(function($){
 	if (total == 1) {$('.sat-gallery .sat-next, .sat-gallery .sat-back').hide(); $('.sat-gallery .caption').css('min-height','1px');}
 	if (total > 1) {$('<p class="sat-count"><span class="current">'+index+'</span>/'+total+'</p>').appendTo('.sat-nav');}
 
-
-	$('.sat-gallery .sat-next').click(function() {
+	function sat_forward() {
 		if($('.sat-gallery .image.active').is(":animated")){return false;}
 		if ($('.sat-gallery .image').length == index) {
 			$('.sat-gallery .image.active').fadeOut(250, 'linear').removeClass('active');
@@ -27,7 +26,8 @@ jQuery(function($){
 		$('.sat-gallery .captions p:first-child').appendTo('.sat-gallery .captions');
 		}
 		return false;
-	});
+	}
+	$('.sat-gallery .sat-next').on('click', sat_forward);
 
 	$('.sat-gallery .sat-back').click(function() {
 		if($('.sat-gallery .image.active').is(":animated")){return false;}
@@ -50,6 +50,10 @@ jQuery(function($){
 
 	// Keep an aspect ratio of 16:9 no matter how big/small it is.
 	$(window).on('load resize', function() {
+
+		if ($(".sat-gallery").attr('data-autoplay') == 'true') {
+			setInterval(sat_forward,6000);
+		}
 
 		var gallery = $('.sat-gallery');
 		var galleryWidth = gallery.outerWidth();
