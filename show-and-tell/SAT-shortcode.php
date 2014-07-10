@@ -62,7 +62,7 @@ function show_and_tell_setup($attr) {
 
 	// Build the output
 	$output = '';
-	$output .= "<div class='sat-gallery' data-autoplay='$autoplay'><div class='images'>";
+	$output .= "<div id='sat_gallery_".rand(0, 1000)."' class='sat-gallery' data-autoplay='$autoplay'><div class='images'>";
 
 	foreach ( $attachments as $id => $attachment ) {
 		$imagearr = wp_get_attachment_image_src( $id, $size, false);

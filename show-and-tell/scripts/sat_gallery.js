@@ -4,49 +4,93 @@ jQuery(function($){
 	$('.sat-gallery .image, .sat-gallery .captions p').hide();
 	$('.sat-gallery .images .image:first-child, .sat-gallery .captions p:first-child').show().addClass('active');
 
-	var index = 1;
-	var total = $('.sat-gallery .image').length;
-	if (total == 1) {$('.sat-gallery .sat-next, .sat-gallery .sat-back').hide(); $('.sat-gallery .caption').css('min-height','1px');}
-	if (total > 1) {$('<p class="sat-count"><span class="current">'+index+'</span>/'+total+'</p>').appendTo('.sat-nav');}
+	$('.sat-gallery').each(function(index, el) {
+		var id = $(this).attr('id');
+		id = "#"+id;
 
-	function sat_forward() {
-		if($('.sat-gallery .image.active').is(":animated")){return false;}
-		if ($('.sat-gallery .image').length == index) {
-			$('.sat-gallery .image.active').fadeOut(250, 'linear').removeClass('active');
-			$('.sat-gallery .images .image:first-child').fadeIn(250, 'linear').addClass('active');
-			$('.sat-gallery p.active').hide().removeClass('active').next('p').show().addClass('active');
-			$('.sat-gallery .captions p:first-child').appendTo('.captions');
-			index = 1;
-			$('.sat-count .current').html(index)
-		}	else {
-		$('.sat-gallery .image.active').fadeOut(250, 'linear').removeClass('active').next('.image').fadeIn(250, 'linear').addClass('active');
-		index++;
-		$('.sat-count .current').html(index);
-		$('.sat-gallery p.active').hide().removeClass('active').next('p').show().addClass('active');
-		$('.sat-gallery .captions p:first-child').appendTo('.sat-gallery .captions');
+		var index = 1;
+		var total = $(id + ' .image').length;
+		if (total == 1) {$(id + ' .sat-next', id + ' .sat-back').hide(); $(id + ' .caption').css('min-height','1px');}
+		if (total > 1) {$('<p class="sat-count"><span class="current">'+index+'</span>/'+total+'</p>').prependTo(id + ' .caption');}
+	});
+
+	var index = 1;
+
+	////////////////////////////////////////////////////////
+	// Forwards Function  /////////////////////////////////
+	//////////////////////////////////////////////////////
+
+	function sat_forwards() {
+
+		var id = $(this).parents('.sat-gallery').attr('id');
+		id = "#"+id;
+
+		if ($(id + ' .image.active').is(":animated")){return false;}
+
+		var current = $(id + ' .image.active').index();
+		var next = current + 1;
+		var current_number = current + 2;
+
+		// If we're at the end, go back to the beginning.
+		if (current == $(id + ' .image').length - 1) {
+			next = 0;
+			current_number = 1;
 		}
+
+		// Change out images
+		$(id + ' .image').eq(current).fadeOut(250, 'linear').removeClass('active');
+		$(id + ' .image').eq(next).fadeIn(250, 'linear').addClass('active');
+
+		// Change out captions
+		$(id + ' .captions p').eq(current).hide().removeClass('active');
+		$(id + ' .captions p').eq(next).show().addClass('active');
+
+		// Update Current Number
+		$(id + ' .sat-count .current').html(current_number);
+
 		return false;
 	}
-	$('.sat-gallery .sat-next').on('click', sat_forward);
+	// Run function on click
+	$('.sat-gallery .sat-next').on('click', sat_forwards );
 
-	$('.sat-gallery .sat-back').click(function() {
-		if($('.sat-gallery .image.active').is(":animated")){return false;}
-		if (index == 1) {
-			$('.sat-gallery .image.active').fadeOut(250, 'linear').removeClass('active');
-			$('.sat-gallery .image').last().fadeIn(250, 'linear').addClass('active');
-			$('.sat-gallery p.active').hide().removeClass('active');
-			$('.sat-gallery .captions p:last-child').show().addClass('active').prependTo('.captions');
-			index = $('.sat-gallery .image').length;
-			$('.sat-count .current').html(index)
-		}	else {
-		$('.sat-gallery .image.active').fadeOut(250, 'linear').removeClass('active').prev().fadeIn(250, 'linear').addClass('active');
-		$('.sat-gallery p.active').hide().removeClass('active');
-		$('.sat-gallery .captions p:last-child').show().addClass('active').prependTo('.sat-gallery .captions');
-		index--;
-		$('.sat-count .current').html(index)
+
+	////////////////////////////////////////////////////////
+	// Backwards Function  ////////////////////////////////
+	//////////////////////////////////////////////////////
+
+	// Combine with forwards function eventually.
+	function sat_backwards() {
+
+		var id = $(this).parents('.sat-gallery').attr('id');
+		id = "#"+id;
+
+		if ($(id + ' .image.active').is(":animated")){return false;}
+
+		var current = $(id + ' .image.active').index();
+		var prev = current - 1;
+		var current_number = current;
+
+		// If we're at the beginning, go back to the end.
+		if (current == 0) {
+			prev = $(id + ' .image').length - 1;
+			current_number = $(id + ' .image').length;
 		}
+
+		// Change out images
+		$(id + ' .image').eq(current).fadeOut(250, 'linear').removeClass('active');
+		$(id + ' .image').eq(prev).fadeIn(250, 'linear').addClass('active');
+
+		// Change out captions
+		$(id + ' .captions p').eq(current).hide().removeClass('active');
+		$(id + ' .captions p').eq(prev).show().addClass('active');
+
+		// Update Current Number
+		$(id + ' .sat-count .current').html(current_number);
+
 		return false;
-	});
+	}
+	// Run function on click
+	$('.sat-gallery .sat-back').on('click', sat_backwards );
 
 	// Keep an aspect ratio of 16:9 no matter how big/small it is.
 	$(window).on('load resize', function() {
