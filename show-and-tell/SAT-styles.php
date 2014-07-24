@@ -3,7 +3,7 @@
 global $post;
 
 // Make sure the shortcode exists first.
-if ( !shortcode_exists('sat_gallery') )
+if ( !shortcode_exists('gallery') )
 	return false;
 
 // Enqueue the styles and scripts.

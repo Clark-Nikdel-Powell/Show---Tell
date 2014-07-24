@@ -1,7 +1,9 @@
 <?php
 
 // Add Show and Tell Shortcode, return output
-add_shortcode('sat_gallery', 'show_and_tell_setup');
+remove_shortcode('gallery');
+
+add_shortcode('gallery', 'show_and_tell_setup');
 
 function show_and_tell_setup($attr) {
 	global $post;
@@ -62,7 +64,7 @@ function show_and_tell_setup($attr) {
 
 	// Build the output
 	$output = '';
-	$output .= "<div id='sat_gallery_".rand(0, 1000)."' class='sat-gallery' data-autoplay='$autoplay'><div class='images'>";
+	$output .= "<div class='sat-gallery' data-autoplay='$autoplay'><div class='images'>";
 
 	foreach ( $attachments as $id => $attachment ) {
 		$imagearr = wp_get_attachment_image_src( $id, $size, false);
