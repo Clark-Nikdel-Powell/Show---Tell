@@ -10,7 +10,11 @@ jQuery(function($){
 
 		var index = 1;
 		var total = $(id + ' .image').length;
-		if (total == 1) {$(id + ' .sat-next', id + ' .sat-back').hide(); $(id + ' .caption').css('min-height','1px');}
+
+		if (total == 1) {
+			$(id + ' .sat-next, ' + id + ' .sat-back').hide()
+			$(id + ' .caption').css('min-height','1px');
+		}
 		if (total > 1) {$('<p class="sat-count"><span class="current">'+index+'</span>/'+total+'</p>').prependTo(id + ' .caption');}
 	});
 
