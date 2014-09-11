@@ -1,13 +1,3 @@
-/css/
-
-/sass/.sass-cache/
-
-/scripts/min/sat_gallery-ck.js
-
-/show-and-tell/sass/.sass-cache/
-
-/show-and-tell/css/
-
-/show-and-tell/scripts/min/
-
-/.DS_Store
+.codekit-cache
+.sass-cache
+.DS_Store
