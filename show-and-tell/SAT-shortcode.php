@@ -67,9 +67,20 @@ function show_and_tell_setup($attr) {
 	$output .= "<div id='sat_gallery_".rand(0, 1000)."' class='sat-gallery' data-autoplay='$autoplay'><div class='images'>";
 
 	foreach ( $attachments as $id => $attachment ) {
-		$imagearr = wp_get_attachment_image_src( $id, $size, false);
 
-		$output .= '<div class="image" style="background-image:url('.$imagearr[0].');"></div>';
+		$vid_link = '';
+		if ( function_exists('get_field') ) {
+			$vid_link = get_field('cnp_attachment_video_link', $id);
+		}
+
+		if ( !empty($vid_link) ) {
+			$output .= '<div class="image video"><iframe id="video" src="'. $vid_link .'" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>';
+		}
+
+		else {
+			$imagearr = wp_get_attachment_image_src( $id, $size, false);
+			$output .= '<div class="image" style="background-image:url('.$imagearr[0].');"></div>';
+		}
 	}
 	$output .= "</div><!-- images -->";
 

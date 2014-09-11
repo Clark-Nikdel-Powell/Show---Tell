@@ -10,6 +10,7 @@ function SAT_styles() {
 		return false;
 
 	wp_enqueue_style( 'sat_styles', SAT_URL.'css/style.css' );
+	wp_enqueue_script( 'froogaloop', SAT_URL.'scripts/vendors/froogaloop.min.js', '', '', true );
 	wp_enqueue_script( 'sat_scripts', SAT_URL.'scripts/min/sat_gallery-ck.js', '', '', true );
 }
 

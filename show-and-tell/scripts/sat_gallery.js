@@ -111,4 +111,19 @@ jQuery(function($){
 
 	});
 
+	/*//////////////////////////////////////////////////////
+	//  VIDEOS  ///////////////////////////////////////////
+	////////////////////////////////////////////////////*/
+
+	function pauseAll() {
+	    $('iframe[src*="vimeo.com"]').each(function () {
+	        $f(this).api('pause');
+	    });
+	}
+
+	$(".sat-next, .sat-back").on("click", function(){
+		pauseAll();
+		return false;
+	});
+
 });
