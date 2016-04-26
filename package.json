@@ -1,0 +1,24 @@
+{
+  "name": "show-and-tell",
+  "version": "1.0.0",
+  "description": "Gallery filtering",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Clark-Nikdel-Powell/Show---Tell.git"
+  },
+  "author": "Josh Nederveld",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Clark-Nikdel-Powell/Show---Tell/issues"
+  },
+  "homepage": "https://github.com/Clark-Nikdel-Powell/Show---Tell#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-sass": "^2.3.1",
+    "gulp-uglify": "^1.5.3"
+  }
+}
