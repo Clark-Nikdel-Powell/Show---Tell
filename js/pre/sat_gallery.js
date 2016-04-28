@@ -20,6 +20,20 @@ jQuery(function($){
 
 	var index = 1;
 
+	function sat_init() {
+
+		if ($(".sat-gallery").attr('data-autoplay') == 'true') {
+			setInterval(sat_forward,6000);
+		}
+
+		var gallery = $('.sat-gallery');
+		var galleryWidth = gallery.outerWidth();
+		var correctHeight = (galleryWidth*9)/16;
+
+		$('.sat-gallery .images').css('height', correctHeight);
+
+	}
+
 	////////////////////////////////////////////////////////
 	// Forwards Function  /////////////////////////////////
 	//////////////////////////////////////////////////////
@@ -99,15 +113,7 @@ jQuery(function($){
 	// Keep an aspect ratio of 16:9 no matter how big/small it is.
 	$(window).on('load resize', function() {
 
-		if ($(".sat-gallery").attr('data-autoplay') == 'true') {
-			setInterval(sat_forward,6000);
-		}
-
-		var gallery = $('.sat-gallery');
-		var galleryWidth = gallery.outerWidth();
-		var correctHeight = (galleryWidth*9)/16;
-
-		$('.sat-gallery .images').css('height', correctHeight);
+		sat_init();
 
 	});
 
@@ -125,5 +131,7 @@ jQuery(function($){
 		pauseAll();
 		return false;
 	});
+
+	sat_init();
 
 });
